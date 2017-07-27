@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans  http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context  http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- 引入配置文件 -->
+    <context:property-placeholder location="classpath:config.properties" />
+
+    <!-- 配置数据源 -->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <property name="url" value="${database.url}"/>
+        <property name="username" value="${database.username}"/>
+        <property name="password" value="${database.password}"/>
+        <property name="validationQuery" value="${database.validation}"/>
+    </bean>
+
+    <!-- 创建SqlSessionFactory -->
+    <bean name="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!-- 引入数据源 -->
+        <property name="dataSource" ref="dataSource" />
+        <!-- MyBatis配置文件 -->
+        <property name="configLocation" value="classpath:mybatis-config.xml" />
+        <!-- 自动扫描src/main/sources下的mapper下的所有MyBatis的数据映射器配置文件 -->
+        <property name="mapperLocations" value="classpath:mapper/*.xml"></property>
+        <!-- 自动扫描cn..model下的所有Entity -->
+        <property name="typeAliasesPackage" value="com.sigal.core.model" />
+    </bean>
+
+
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!-- 自动扫描Mapper接口文件 -->
+        <property name="basePackage" value="com.sigal.core.dao"/>
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactoryBean"/>
+    </bean>
+
+</beans>

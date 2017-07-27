@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sigal.core.dao.RoleMenuMapper" >
+  <resultMap id="BaseResultMap" type="com.sigal.core.model.RoleMenu" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="role_id" property="roleId" jdbcType="INTEGER" />
+    <result column="menu_id" property="menuId" jdbcType="INTEGER" />
+    <result column="company_id" property="companyId" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <select id="selectListByRoleId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select * from t_role_menu  where role_id = #{_parameter,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_role_menu
+    where role_id = #{_parameter,jdbcType=INTEGER}
+  </delete>
+
+
+
+  <insert id="insertBatchSelective" parameterType="java.util.List">
+    INSERT INTO t_account_role (role_id,menu_id,company_id,create_date)
+    VALUES
+    <foreach collection="list" item="item" index="index" separator=",">
+      (
+      #{item.roleId,jdbcType=INTEGER},
+      #{item.menuId,jdbcType=INTEGER},
+      #{item.companyId,jdbcType=INTEGER},
+      #{item.createDate,jdbcType=TIMESTAMP}
+      )
+    </foreach>
+  </insert>
+
+
+
+
+</mapper>

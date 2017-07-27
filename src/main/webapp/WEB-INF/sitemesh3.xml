@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sitemesh>
+	<mapping path="/*" decorator="/WEB-INF/decorator.jsp" />
+	<mapping path="/login.jsp" exclue="true" />
+	<mapping path="/login" exclue="true" />
+	<mapping path="/logout" exclue="true" />
+	<mapping path="/error/*" exclue="true" />
+	<!--<mapping path="/pager/top.jsp" exclue="true" />
+	<mapping path="/pager/menu.jsp" exclue="true" />-->
+	<mapping path="/pager/account/roleform.jsp" exclue="true" />
+</sitemesh>

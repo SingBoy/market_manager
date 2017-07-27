@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+	id="WebApp_ID" version="3.1">
+	<description>基础信息平台</description>
+	<display-name>basic System</display-name>
+	
+	<!-- Spring的log4j监听器 -->
+    <listener>
+        <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+    </listener>
+    
+	<!-- 配置字符集过滤器 -->
+	<filter>
+		<description>字符集过滤器</description>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<description>字符集编码</description>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+            <param-name>forceEncoding</param-name>
+            <param-value>true</param-value>
+        </init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	<!-- Spring 配置文件位置 -->
+	<context-param>
+		<description>Spring 配置文件位置</description>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:spring-druid.xml</param-value>
+    </context-param>
+  <context-param>
+        <param-name/>
+        <param-value/>
+    </context-param>
+    <context-param>
+        <param-name/>
+        <param-value/>
+    </context-param>
+    <!-- Spring MVC的Dispatcher配置 -->
+    <servlet>
+    	<description>Spring MVC的Dispatcher配置</description>
+        <servlet-name>dispatcher</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:spring.xml</param-value>
+        </init-param>
+        <!-- 在应用启动时就加载并初始化这个servlet -->
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>dispatcher</servlet-name>
+        <url-pattern>/</url-pattern>
+        <!--
+        	拦截/*，这是一个错误的方式，请求可以走到Action中，但转到jsp时再次被拦截，不能访问到jsp。 
+            拦截/，restful风格 弊端：会导致静态文件（jpg,js,css）被拦截后不能正常显示。解决办法看dispatcher
+        -->
+    </servlet-mapping>
+    <!-- 
+    	Spring会创建一个WebApplicationContext上下文，称为父上下文（父容器） ，
+    	保存在 ServletContext中，key是WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE的值。
+    	可以使用Spring提供的工具类取出上下文对象：WebApplicationContextUtils.getWebApplicationContext(ServletContext);
+      
+    	DispatcherServlet是一个Servlet,可以同时配置多个，
+    	每个 DispatcherServlet有一个自己的上下文对象（WebApplicationContext），
+    	称为子上下文（子容器），子上下文可以访问父上下文中的内容，
+    	但父上下文不能访问子上下文中的内容。 它也保存在 ServletContext中，
+    	key是"org.springframework.web.servlet.FrameworkServlet.CONTEXT"+Servlet名称。
+    	当一个Request对象产生时，会把这个子上下文对象（WebApplicationContext）保存在Request对象中，
+    	key是DispatcherServlet.class.getName() + ".CONTEXT"。
+    	可以使用工具类取出上下文对象：RequestContextUtils.getWebApplicationContext(request);
+   	-->
+    <!-- 打开 Spring 监听器 -->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    
+	<!-- SiteMesh3 过滤器的配置 -->
+	<filter>
+		<filter-name>sitemesh</filter-name>
+		<filter-class>org.sitemesh.config.ConfigurableSiteMeshFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>sitemesh</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	<!-- 配置session超时时间，单位分钟 -->
+	<session-config>
+		<session-timeout>30</session-timeout>
+	</session-config>
+	
+	<!-- 错误页面配置 -->
+	<error-page>
+		<error-code>404</error-code>
+		<location>/error/404</location>
+	</error-page>
+	<error-page>
+		<error-code>403</error-code>
+		<location>/error/403</location>
+	</error-page>
+	<error-page>
+		<error-code>500</error-code>
+		<location>/error/500</location>
+	</error-page>
+
+	<!-- 设置欢迎页面 -->
+	<welcome-file-list>
+		<welcome-file>login.jsp</welcome-file>
+	</welcome-file-list>
+</web-app>

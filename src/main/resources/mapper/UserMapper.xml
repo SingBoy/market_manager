@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sigal.core.dao.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.sigal.core.model.User" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="nickname" property="nickname" jdbcType="VARCHAR" />
+    <result column="user_role" property="userRole" jdbcType="INTEGER" />
+    <result column="user_role_id" property="userRoleId" jdbcType="INTEGER" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="business_id" property="businessId" jdbcType="INTEGER" />
+    <result column="business_name" property="businessName" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, username, password, nickname, user_role, user_role_id, email, phone, status, business_id,
+    description, create_date, modify_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectByBusinessId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from t_user
+    where business_id = #{businessId,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectBusinessList" resultMap="BaseResultMap" >
+    select id,nickname
+    from t_user
+    where user_role = 2
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <!-- 批量删除员工信息 -->
+  <delete id="batchDeleteUser" parameterType="java.lang.Integer">
+    delete from t_user where id in
+    <foreach item="item" collection="array" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </delete>
+
+
+  <insert id="insertSelective" parameterType="com.sigal.core.model.User" >
+    insert into t_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="nickname != null" >
+        nickname,
+      </if>
+      <if test="userRole != null" >
+        user_role,
+      </if>
+      <if test="userRoleId != null" >
+        user_role_id,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="modifyDate != null" >
+        modify_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null" >
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="userRole != null" >
+        #{userRole,jdbcType=INTEGER},
+      </if>
+      <if test="userRoleId != null" >
+        #{userRoleId,jdbcType=INTEGER},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null" >
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sigal.core.model.User" >
+    update t_user
+    <set >
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null" >
+        nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="userRole != null" >
+        user_role = #{userRole,jdbcType=INTEGER},
+      </if>
+      <if test="userRoleId != null" >
+        user_role_id = #{userRoleId,jdbcType=INTEGER},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+        description = #{description,jdbcType=VARCHAR},
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null" >
+        modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  
+  	<!-- 根据登录名称查询用户信息 -->
+	<select id="selectUserByUsername" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select <include refid="Base_Column_List" /> from t_user
+      where username = #{username} limit 1
+	</select>
+	
+
+	<select id="selectByUsername" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select 
+		<include refid="Base_Column_List" /> 
+		from t_user 
+		where username = #{username}
+	</select>
+
+  <select id="selectCount" parameterType="com.sigal.core.model.User" resultType="java.lang.Integer">
+    select count(id) from t_user
+    where
+    user_role = #{userRole,jdbcType=INTEGER}
+    <if test="keyword != null and keyword !=''">
+      and ( username like '%${keyword}%' or nickname like '%${keyword}%' )
+    </if>
+  </select>
+  <select id="selectList" parameterType="com.sigal.core.model.User" resultMap="BaseResultMap">
+    select  u1.id, u1.username, u1.nickname, u1.user_role, u1.status, u1.business_id,u2.nickname as business_name,
+    u1.description, u1.create_date from t_user u1
+    LEFT JOIN t_user u2 ON u1.business_id = u2.id
+    where
+    u1.user_role = #{userRole,jdbcType=INTEGER}
+    <if test="keyword != null and keyword !=''">
+      and ( u1.username like '%${keyword}%' or u1.nickname like '%${keyword}%' )
+    </if>
+    order by
+    u1.create_date desc
+    limit ${startIndex}, ${pageSize}
+  </select>
+  <update id="updateBusiness" parameterType="com.sigal.core.model.User" >
+    update t_user set business_id = #{businessId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <update id="updatePassword" parameterType="com.sigal.core.model.User" >
+    update t_user set password = #{password,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectByUsernameAndRole" parameterType="java.lang.String" resultType="java.lang.Integer">
+    select count(id) FROM t_user
+    where username = #{username,jdbcType=VARCHAR} and user_role = #{userRole,jdbcType=INTEGER}
+  </select>
+
+</mapper>
