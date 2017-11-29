@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.sigal.core.dao.RoleMapper" >
-  <resultMap id="BaseResultMap" type="com.sigal.core.model.Role" >
+<mapper namespace="com.singe.core.dao.RoleMapper" >
+  <resultMap id="BaseResultMap" type="com.singe.core.model.Role" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="company_id" property="companyId" jdbcType="VARCHAR" />
@@ -35,7 +35,7 @@
   </delete>
 
 
-  <insert id="insertSelective" parameterType="com.sigal.core.model.Role" >
+  <insert id="insertSelective" parameterType="com.singe.core.model.Role" >
     insert into t_role
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -79,7 +79,7 @@
     </trim>
   </insert>
 
-  <update id="updateByPrimaryKeySelective" parameterType="com.sigal.core.model.Role" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.singe.core.model.Role" >
     update t_role
     <set >
       <if test="name != null" >
@@ -96,7 +96,7 @@
 
 
 
-  <select id="selectCount" parameterType="com.sigal.core.model.Role" resultType="java.lang.Integer">
+  <select id="selectCount" parameterType="com.singe.core.model.Role" resultType="java.lang.Integer">
     select count(id) from t_role
     where 1=1
     <if test="keyword != null and keyword !=''">
@@ -104,7 +104,7 @@
     </if>
   </select>
 
-  <select id="selectList" parameterType="com.sigal.core.model.Role" resultMap="BaseResultMap">
+  <select id="selectList" parameterType="com.singe.core.model.Role" resultMap="BaseResultMap">
     select <include refid="Base_Column_List"/> from t_role
     where 1=1
     <if test="keyword != null and keyword !=''">

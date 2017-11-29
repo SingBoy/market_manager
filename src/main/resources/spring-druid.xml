@@ -26,13 +26,13 @@
         <!-- 自动扫描src/main/sources下的mapper下的所有MyBatis的数据映射器配置文件 -->
         <property name="mapperLocations" value="classpath:mapper/*.xml"></property>
         <!-- 自动扫描cn..model下的所有Entity -->
-        <property name="typeAliasesPackage" value="com.sigal.core.model" />
+        <property name="typeAliasesPackage" value="com.singe.core.model" />
     </bean>
 
 
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <!-- 自动扫描Mapper接口文件 -->
-        <property name="basePackage" value="com.sigal.core.dao"/>
+        <property name="basePackage" value="com.singe.core.dao"/>
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactoryBean"/>
     </bean>
 

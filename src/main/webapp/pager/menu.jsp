@@ -56,7 +56,7 @@
                 </div>
             </div><!-- #sidebar-shortcuts -->
 
-            <ul class="nav nav-list">
+            <ul class="nav nav-list" id="leftMenu">
 
                 <li>
                     <a href="#" class="dropdown-toggle">
@@ -89,7 +89,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class="active">
+                <%--<li class="active">
                     <a href="index.html">
                         <i class="icon-dashboard"></i>
                         <span class="menu-text"> 控制台 </span>
@@ -384,7 +384,7 @@
                             </a>
                         </li>
                     </ul>
-                </li>
+                </li>--%>
             </ul><!-- /.nav-list -->
 
             <div class="sidebar-collapse" id="sidebar-collapse">
@@ -406,4 +406,38 @@
     </a>
 </div><!-- /.main-container -->
 </body>
+<script src='${pageContext.request.contextPath}/plugins/js/jquery-1.10.2.min.js'></script>
+<script>
+    $(document).ready(function() {
+
+        $.ajax(
+            {url: "/role/doMenuForm/",
+            context: document.body,
+            success: function(){
+                for (var i=0;i<2;i++)
+                {
+                    initLeftMenu(i);
+                }
+        }});
+
+    })
+    function initLeftMenu(i) {
+        var m = "<li><a href='#' class='dropdown-toggle'>" +
+                    "<i class='icon-desktop'></i>" +
+                    "<span class='menu-text'>系统设置"+i+"</span>" +
+                    "<b class='arrow icon-angle-down'></b>" +
+                    "</a>" +
+                    "<ul class='submenu'>" +
+                        "<li> " +
+                            "<a href='${pageContext.request.contextPath}/account/list'>" +
+                            "<i class='icon-double-angle-right'></i>" +
+                            "用户列表" +i+""
+                            "</a>" +
+                        "</li>" +
+                    "</ul>" +
+                "</li>";
+        $("#leftMenu").append(m)
+    }
+
+</script>
 </html>

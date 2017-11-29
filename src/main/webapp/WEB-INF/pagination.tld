@@ -5,7 +5,7 @@
     <tag>
 	  	<description>show pagination component</description>
 	    <name>pagerNav</name>
-	    <tag-class>com.sigal.common.pagination.tag.PaginationTag</tag-class>
+	    <tag-class>com.singe.common.pagination.tag.PaginationTag</tag-class>
 	    <body-content>empty</body-content>
 	    <attribute>
 	      <name>modelRef</name>

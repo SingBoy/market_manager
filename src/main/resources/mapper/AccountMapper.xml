@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.sigal.core.dao.AccountMapper" >
-  <resultMap id="BaseResultMap" type="com.sigal.core.model.Account" >
+<mapper namespace="com.singe.core.dao.AccountMapper" >
+  <resultMap id="BaseResultMap" type="com.singe.core.model.Account" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="accountname" property="accountname" jdbcType="VARCHAR" />
     <result column="password" property="password" jdbcType="VARCHAR" />
@@ -41,7 +41,7 @@
 
 
 
-  <insert id="insertSelective" parameterType="com.sigal.core.model.Account" >
+  <insert id="insertSelective" parameterType="com.singe.core.model.Account" >
     insert into t_account
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -115,7 +115,7 @@
     </trim>
   </insert>
 
-  <update id="updateByPrimaryKeySelective" parameterType="com.sigal.core.model.Account" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.singe.core.model.Account" >
     update t_account
     <set >
       <if test="accountname != null" >
@@ -152,14 +152,14 @@
 		where accountname = #{accountname}
 	</select>
 
-  <select id="selectCount" parameterType="com.sigal.core.model.Account" resultType="java.lang.Integer">
+  <select id="selectCount" parameterType="com.singe.core.model.Account" resultType="java.lang.Integer">
     select count(id) from t_account
     where 1=1
     <if test="keyword != null and keyword !=''">
       and ( accountname like '%${keyword}%' or nickname like '%${keyword}%' )
     </if>
   </select>
-  <select id="selectList" parameterType="com.sigal.core.model.Account" resultMap="BaseResultMap">
+  <select id="selectList" parameterType="com.singe.core.model.Account" resultMap="BaseResultMap">
     select <include refid="Base_Column_List"/> from t_account
     where 1=1
     <if test="keyword != null and keyword !=''">
@@ -170,7 +170,7 @@
     limit ${startIndex}, ${pageSize}
   </select>
 
-  <update id="updatePassword" parameterType="com.sigal.core.model.Account" >
+  <update id="updatePassword" parameterType="com.singe.core.model.Account" >
     update t_account set password = #{password,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>

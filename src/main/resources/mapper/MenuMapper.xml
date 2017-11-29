@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.sigal.core.dao.MenuMapper" >
-  <resultMap id="BaseResultMap" type="com.sigal.core.model.Menu" >
+<mapper namespace="com.singe.core.dao.MenuMapper" >
+  <resultMap id="BaseResultMap" type="com.singe.core.model.Menu" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="parent_id" property="parentId" jdbcType="INTEGER" />
@@ -29,7 +29,7 @@
   </delete>
 
 
-  <insert id="insertSelective" parameterType="com.sigal.core.model.Menu" >
+  <insert id="insertSelective" parameterType="com.singe.core.model.Menu" >
     insert into t_menu
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -79,7 +79,7 @@
     </trim>
   </insert>
 
-  <update id="updateByPrimaryKeySelective" parameterType="com.sigal.core.model.Menu" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.singe.core.model.Menu" >
     update t_menu
     <set >
       <if test="name != null" >
@@ -101,14 +101,14 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-  <select id="selectCount" parameterType="com.sigal.core.model.Menu" resultType="java.lang.Integer">
+  <select id="selectCount" parameterType="com.singe.core.model.Menu" resultType="java.lang.Integer">
     select count(id) from t_menu
     where 1=1
     <if test="keyword != null and keyword !=''">
       and  name like '%${keyword}%'
     </if>
   </select>
-  <select id="selectList" parameterType="com.sigal.core.model.Menu" resultMap="BaseResultMap">
+  <select id="selectList" parameterType="com.singe.core.model.Menu" resultMap="BaseResultMap">
     SELECT m1.id, m1.name, m1.parent_id, m1.menu_url,m1.description, m1.create_date, m1.modify_date,m2.name AS parent_name
     FROM t_menu m1 LEFT JOIN t_menu m2 ON m1.parent_id = m2.id
     WHERE 1=1

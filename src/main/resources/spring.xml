@@ -56,9 +56,9 @@
     <aop:aspectj-autoproxy />
 
     <!-- 自动扫描Controller下的所有控制器 -->
-    <context:component-scan base-package="com.sigal.core.controller" />
+    <context:component-scan base-package="com.singe.core.controller" />
     <!-- 自动扫描Service下的业务逻辑处理类 -->
-    <context:component-scan base-package="com.sigal.core.service" />
+    <context:component-scan base-package="com.singe.core.service" />
 
     <!-- 静态资源配置 -->
     <mvc:resources mapping="/plugins/**" location="/plugins/"/>
@@ -79,7 +79,7 @@
             <mvc:exclude-mapping path="/error/**"/>
             <mvc:exclude-mapping path="/plugins/**"/>
             <mvc:exclude-mapping path="/pager/**"/>
-            <bean  class="com.sigal.common.interceptor.AuthInterceptor"/>
+            <bean  class="com.singe.common.interceptor.AuthInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
 </beans>

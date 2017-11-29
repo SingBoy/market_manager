@@ -47,14 +47,15 @@
 
 
 <jsp:include page="../pager/top.jsp"/>
-<!--[if !IE]> -->
 
 <jsp:include page="../pager/menu.jsp"/>
-
 <!-- basic scripts -->
-<div class="page-content">
+<div >
     <sitemesh:write property="body" />
 </div>
+<!--[if !IE]> class="page-content"-->
+
+
 
 
 <div class="ace-settings-container" id="ace-settings-container">
@@ -145,6 +146,7 @@
 <script src="${pageContext.request.contextPath}/plugins/js/bootbox.min.js"></script>
 <script src="${pageContext.request.contextPath}/plugins/js/ace-elements.min.js"></script>
 <script src="${pageContext.request.contextPath}/plugins/js/ace.min.js"></script>
+
 
 <!-- inline scripts related to this page -->
 
